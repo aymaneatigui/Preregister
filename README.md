@@ -1,7 +1,7 @@
 # Preregister
 Preregister is a web-based platform designed for new students to pre-register for a specific institution. The platform has two main sections: one for students and the other for the administrator. The student section enables students to create an account using their email and password, after which they can modify their information, upload documents, and view news and announcements posted by the administrator. The administrator section allows the administrator to manage the student database, modify the information displayed to the students, and export data in different formats.
 <p align="center">
-  <img  height="300" src="src/project_img/Preregister.jpg">
+  <img  height="300" src="code/src/project_img/Preregister.jpg">
 </p>
 
 
@@ -43,27 +43,27 @@ To install Preregister, follow these steps:
 ## Usage
 After creating an account on the platform, the student is directed to the first interface, where they can log in using their email and password. The platform then verifies the student's information from the database and directs them to their account's first page if the verification is successful. If the verification fails or if there is an error, an error message is displayed.
 <p align="center">
-  <img height="350" src="src/project_img/Usage.jpg">
+  <img height="350" src="code/src/project_img/Usage.jpg">
 </p>
 
 ## Student Section
 The student's account consists of two main pages. The first page is the home page, which displays the latest news and announcements posted by the administrator. The administrator can modify and add news and announcements to this page. The second page is the registration form, which allows the student to modify their information, upload documents, and view their profile photo. Additionally, there is a button on the account that enables the student to log out.
 <p align="center">
-  <img height="350" src="src/project_img/Student.jpg">  
-  <img height="350" src="src/project_img/Student2.jpg">
+  <img height="350" src="code/src/project_img/Student.jpg">  
+  <img height="350" src="code/src/project_img/Student2.jpg">
 </p>
 
 ## Administrator Section
 The administrator's account also consists of two main pages. The first page is the home page, which displays information about all students who have created an account on the platform. The administrator can modify the number of students and the requested choice displayed on this page. The second page is the profile page, which allows the administrator to modify their information, including their name, surname, email, and photo. The administrator can also modify the latest announcements and news that they want to display on the student's home page.
 <p align="center">
-  <img height="300" src="src/project_img/Administrator.jpg">
-  <img height="400" src="src/project_img/Administrator2.jpg">
+  <img height="300" src="code/src/project_img/Administrator.jpg">
+  <img height="400" src="code/src/project_img/Administrator2.jpg">
 </p>
 
 ## Exporting Data
 In addition to the two main sections, the platform also supports exporting student data in PDF, CSV, or EXCEL formats. This feature enables the administrator to manage the student database efficiently.
 <p align="center">
-  <img height="400" src="src/project_img/Exporting.jpg">
+  <img height="400" src="code/src/project_img/Exporting.jpg">
 </p>
 
 ## Conclusion

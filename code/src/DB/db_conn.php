@@ -7,7 +7,7 @@
     $db_url = getenv('DATABASE_URL');
     try
     {
-        $conn = new PDO($db_url);
+        $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db_name", $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $e)

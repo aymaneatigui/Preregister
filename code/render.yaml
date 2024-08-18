@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: php-app
+    runtime: docker
+    plan: free
+    buildCommand: docker build -t php-app .
+    startCommand: docker run -e DATABASE_URL=$DATABASE_URL -p 80:80 php-app

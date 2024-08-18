@@ -1,12 +1,13 @@
 <?php
-    $host = 'localhost'; //HOST NAME.
+    $host = getenv('DB_HOST');
     $db_name = 'univ'; //Database Name
     $db_username = 'root'; //Database Username
-    $db_password = ''; //Database Password
+    $db_password = getenv('DB_PASSWORD'); //Database Password
+    $port = '5432'; //Database Port
 
     try
     {
-        $conn = new PDO('mysql:host='. $host .';dbname='.$db_name, $db_username, $db_password);
+        $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db_name", $db_username, $db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $e)

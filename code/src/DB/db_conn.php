@@ -7,6 +7,8 @@
     $db_url = getenv('DATABASE_URL');
     try
     {
+        echo "Connecting to database ...";
+        echo $db_url;
         $conn = new PDO($db_url);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

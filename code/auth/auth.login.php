@@ -104,7 +104,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                             $_SESSION['fcin'] = $row['fcin'];
                             $_SESSION['fbac'] = $row['fbac'];
                             $_SESSION['fnotes'] = $row['fnotes'];
-                            $_SESSION['u_choix'] = $row['u_choix'];
+                            $_SESSION['u_choix'] = $row['u_choix'] ?? 'GI';
                         }
                         header("Location: ../home/index.php");
                     }

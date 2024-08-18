@@ -42,7 +42,7 @@ if(isset($_POST['fname']) &&
             $data = "fname=".$fname."&lname=".$lname;
             header("Location: ../signup.php?error=$er&$data");
         }else{
-    	$sql = "INSERT INTO users (fname, lname, email, pwd, `role`) VALUES(?,?,?,?,?)";
+        $sql = "INSERT INTO users (fname, lname, email, pwd, role) VALUES (?, ?, ?, ?, ?)";
     	$stmt = $conn->prepare($sql);
     	$stmt->execute([$fname, $lname, $email, $password, "student"]);
 

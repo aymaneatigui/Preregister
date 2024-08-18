@@ -1,27 +1,28 @@
 <?php
 session_start();
 
-if (isset($_SESSION['u_fname']) && $_SESSION['role'] = "admin") {
+if (isset($_SESSION['u_fname']) && $_SESSION['role'] == "admin") {
 
-        include("../src/DB/db_conn.php");
+    include("../src/DB/db_conn.php");
     if (isset($_POST['choix']) && isset($_POST['ne'])) {
 
         $_SESSION['ne'] = $_POST['ne'];
         $_SESSION['choix'] = $_POST['choix'];
     }
 
-            
-    $stmt = $conn->prepare("SELECT u.fname, u.lname, u.email, s.cne, s.nacces, s.choix, s.fbac, s.fnotes, s.fcin
-                                FROM students as s JOIN users as u
-                                ON u. id = s. id
-                                where s. choix = \"". $_SESSION['choix']."\"
-                                ORDER BY s.nacces DESC 
-                                LIMIT ".$_SESSION['ne']."
-        ");
 
-        $stmt->execute();
-        $user = $stmt->fetchAll();
-        
+    $stmt = $conn->prepare("
+    SELECT u.fname, u.lname, u.email, s.cne, s.nacces, s.choix, s.fbac, s.fnotes, s.fcin
+    FROM students as s
+    JOIN users as u ON u.id = s.id
+    WHERE s.choix = ?
+    ORDER BY s.nacces DESC
+    LIMIT ?
+");
+
+    // Execute with parameters
+    $stmt->execute([$_SESSION['choix'], $_SESSION['ne']]);
+    $user = $stmt->fetchAll();
 
 ?>
     <!DOCTYPE html>
@@ -66,40 +67,40 @@ if (isset($_SESSION['u_fname']) && $_SESSION['role'] = "admin") {
                 <div class="px-4 pb-3 pt-3 mb-2 rounded-lg shadow-md bg-gray-800">
                     <div class="relative z-0  w-full group">
                         <form action="./admin.php" method="post">
-                        <div class="grid md:grid-cols-3 md:gap-6 relative z-0 mb-1 w-full group">
-                            <label class="block mb-2 text-sm font-medium text-gray-400">
-                                <div class="relative z-0 w-3/4 group">
-                                    <input  class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2  appearance-none text-white focus:border-blue-500 focus:outline-none focus:ring-0 peer border-gray-600" 
-                                            type="number" 
+                            <div class="grid md:grid-cols-3 md:gap-6 relative z-0 mb-1 w-full group">
+                                <label class="block mb-2 text-sm font-medium text-gray-400">
+                                    <div class="relative z-0 w-3/4 group">
+                                        <input class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2  appearance-none text-white focus:border-blue-500 focus:outline-none focus:ring-0 peer border-gray-600"
+                                            type="number"
                                             name="ne"
-                                            id="ne" 
-                                            <?php if ($_SESSION['ne'] !== "") { ?> 
-                                                value="<?=$_SESSION['ne'] ?>"
-                                            <?php } ?> 
+                                            id="ne"
+                                            <?php if ($_SESSION['ne'] !== "") { ?>
+                                            value="<?= $_SESSION['ne'] ?>"
+                                            <?php } ?>
                                             placeholder=" " />
-                                    <label class="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="ne">
-                                        Entrer un nombre d'étudiants 
-                                    </label>
-                                </div>
-                            </label>
+                                        <label class="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="ne">
+                                            Entrer un nombre d'étudiants
+                                        </label>
+                                    </div>
+                                </label>
 
-                            <select class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" id="choix" name="choix">
-                                <?php
-                                include("./parts/choix.php");
-                                if ($_SESSION['choix'] !== "") {
-                                    $selected = $_SESSION['choix'];
-                                } else {
-                                    $selected = "GI";
-                                }
-                                foreach ($choix as $key => $val) {
-                                    echo "<option value=\"" . $key . "\"" . ($key == $selected ? " selected=\"selected\">" : ">") . $val . "</option>";
-                                }
-                                ?>
-                            </select>
-                            <button class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type="submit" name="formbtn">
-                                Submit
-                            </button>
-                        </div>
+                                <select class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" id="choix" name="choix">
+                                    <?php
+                                    include("./parts/choix.php");
+                                    if ($_SESSION['choix'] !== "") {
+                                        $selected = $_SESSION['choix'];
+                                    } else {
+                                        $selected = "GI";
+                                    }
+                                    foreach ($choix as $key => $val) {
+                                        echo "<option value=\"" . $key . "\"" . ($key == $selected ? " selected=\"selected\">" : ">") . $val . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <button class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type="submit" name="formbtn">
+                                    Submit
+                                </button>
+                            </div>
                         </form>
                     </div>
 
@@ -126,7 +127,7 @@ if (isset($_SESSION['u_fname']) && $_SESSION['role'] = "admin") {
                         </thead>
                         <tbody>
                             <?php
-                            foreach ($user as $row ) {
+                            foreach ($user as $row) {
                                 echo "<tr>";
                                 echo "<td>" . $row['fname'] . "</td>";
                                 echo "<td>" . $row['lname'] . "</td>";
@@ -138,10 +139,9 @@ if (isset($_SESSION['u_fname']) && $_SESSION['role'] = "admin") {
                                 echo "<td><a href=\"../src/Users/documents/" . $row['fnotes'] . "\"target=\"_blank\">Telecharger</a></td>";
                                 echo "<td><a href=\"../src/Users/documents/" . $row['fcin'] . "\"target=\"_blank\">Telecharger</a></td>";
                                 echo "</tr>";
-                                
                             }
 
-                    
+
                             ?>
 
                         </tbody>

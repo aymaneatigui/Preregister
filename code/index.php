@@ -1,3 +1,15 @@
+<?php
+// Check for a debug parameter in the URL to log PHP info
+if (isset($_GET['debug']) && $_GET['debug'] === 'phpinfo') {
+    ob_start();
+    phpinfo();
+    $phpinfo_output = ob_get_clean();
+    $log_file = __DIR__ . '/phpinfo.log'; // __DIR__ ensures the log file is in the same directory as index.php
+    file_put_contents($log_file, $phpinfo_output);
+    echo "PHP info has been logged to phpinfo.log.";
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

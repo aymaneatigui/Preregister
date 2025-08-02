@@ -1,7 +1,7 @@
 <?php
 $host = getenv('DB_HOST');
-$db_name = 'univ'; //Database Name
-$db_username = 'root'; //Database Username
+$db_name = getenv('DB_NAME'); //Database Name
+$db_username = getenv('DB_USERNAME'); //Database Username
 $db_password = getenv('DB_PASSWORD'); //Database Password
 $port = '5432'; //Database Port
 try {
